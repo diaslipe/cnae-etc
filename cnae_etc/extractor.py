@@ -70,20 +70,25 @@ def extract_data(month_year: str, src: str):
             )
             flags.append(flag)
 
-        # combina flags (and_or → pelo menos uma coluna tem CNAE de interesse)
+        # Combine flags (and_or → at least one column has a CNAE of interest)
+        # Combine flags (and_or → pelo menos uma coluna tem CNAE de interesse)
         chunk["has_interest"] = pd.concat(flags, axis=1).any(axis=1)
 
-        # filtra apenas linhas de interesse
+        
+        # Filter only rows of interest
+        # Filtre apenas linhas de interesse
         filtered = chunk[chunk["has_interest"]].copy()
-        filtered["month_year"] = month_year  # adiciona coluna com período
+        filtered["month_year"] = month_year  # adds the period (moth_year) of the the data source in the month year column / adiciona o período (month_year) da fonte de dados na coluna month_year
 
-        # salva linhas filtradas no arquivo de saída (append)
+        # Save filtered rows in the output file (append)
+        # Salve linhas filtradas no arquivo de saída (append)
         filtered.to_csv(output_path, mode="a", index=False, header=False, sep=SEP)
-        total_extracted += filtered.shape[0]  # atualiza contador
+        total_extracted += filtered.shape[0]  # updates counter / atualiza contador
 
         print(f"Chunk {n_chunk} — Rows extracted: {filtered.shape[0]} (Total: {total_extracted})")
 
-    # mensagem final
+    # Final message
+    # Mensagem final
     print(f"\n✅ Extraction completed for {src}")
     print(f"Total rows extracted: {total_extracted}")
     print(f"File saved at: {os.path.abspath(output_path)}")
