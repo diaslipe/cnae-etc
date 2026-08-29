@@ -2,10 +2,10 @@ import os
 import pandas as pd 
 from constants import AQUACULTURE_CNAES, TARGET_COLUMNS, SEP, ENCODING, CHUNKSIZE
 
-def extract_values(month_year: str, src: str):
+def extract_data(month_year: str, src: str):
     """
-    Extract rows from a large Brazilian dataset based on fixed interest CNAEs.
-    Extrai linhas de um dataset brasileiro grande com base em CNAEs fixos de interesse.
+    Extracts rows from the open dataset of the National Registry of Legal Entities (CNPJ) based on fixed interest CNAEs values.
+    Extrai linhas do conjunto de dados aberto do Cadastro Nacional da Pessoa Jurídica (CNPJ) com base em valores fixos de CNAE.
     """
 
     # garante que a pasta 'extracted' existe
